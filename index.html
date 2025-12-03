@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Not an apology</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif; }
+    html, body { height:100%;  }
+
+    body {
+      background: linear-gradient(135deg, #c9b1f2, #bcd4e6); /* soft lavender → pale blue */
+      color: #333; /* soft dark gray */
+    }
+
+    .section {
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:48px 24px;
+      transition: opacity 1s ease, transform 0.6s ease;
+    }
+
+    h1.title { font-size:44px; font-weight:700; letter-spacing:0.6px; margin-bottom:18px; color:#444; }
+    .content { max-width:820px; font-weight:300; font-size:18px; line-height:1.7; color:#444; }
+
+    .btn {
+      margin-top:30px;
+      padding:12px 26px;
+      border-radius:12px;
+      border:2px solid rgba(68,68,68,0.3);
+      background: rgba(255,255,255,0.2);
+      color: #444;
+      font-weight:500;
+      cursor:pointer;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-3px); background:white; color:#555; }
+
+    #page2 { 
+      background: linear-gradient(135deg, #1a1a1a, #333); 
+      opacity:0; pointer-events:none; z-index:2; 
+      color:#eee;
+    }
+
+    .dark-title { font-size:36px; font-weight:500; margin-bottom:14px; }
+    .dark-sub { font-size:18px; line-height:1.6; color:#ddd; max-width:760px; margin-bottom:26px; }
+
+    .photo {
+      margin-top:32px;
+      width:340px; max-width:86%;
+      border-radius:12px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.1);
+      cursor:pointer;
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .photo:hover { transform:scale(1.03); box-shadow:0 14px 50px rgba(0,0,0,0.2); }
+
+    audio { display:none; }
+
+    .show-page2 #page1 { opacity:0; pointer-events:none; transform:translateY(-10px); }
+    .show-page2 #page2 { opacity:1; pointer-events:auto; }
+
+    @media (max-width:600px){
+      h1.title { font-size:28px; }
+      .content, .dark-sub { font-size:16px; padding:0 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Piano Music -->
+  <audio id="piano" loop preload="auto">
+    <source src="audio.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- PAGE 1 -->
+  <div id="page1" class="section">
+    <h1 class="title">Not an apology</h1>
+
+    <div class="content">
+      <p>This isn’t an apology 😔. Not because I don’t care, but because I don’t have the strength to apologise for something I didn’t destroy alone. Maybe I made a scene 😢. Maybe I overreacted 😔. But I should’ve left the moment I saw your ex pinned 💔.</p>
+
+      <p>I should’ve left when you literally took your phone to the washroom 📱🚪.</p>
+
+      <p>I should’ve left when all I asked for was a little time, and you said you were “busy”… yet even when you were with me, your attention was always somewhere else, on that screen 😞.</p>
+
+      <p>I removed you from my Snap and my private IG because I can’t do this anymore 😢. I don’t know why you did this to me, I don’t know why you acted so immature 😔. I never had anything to hide : you went through my phone many times, you know that better than anyone 📱💔.</p>
+
+      <p>Part of me truly believes you loved me , even if it was just for a little while 💜. Otherwise, why did you do all the things that made me believe in us?</p>
+
+      <p>And here’s the thing: even a fool would understand this , if you can’t show something on your phone, it’s because you have something to hide 🤷‍♀️. You can change my Snapchat name, but not the contact? Make it make sense.</p>
+
+      <p>I don’t hold a grudge, because my love for you was real 💖. That’s probably the only honest part of this whole story.</p>
+
+      <p>Do you even remember that we didn’t take a single pic on the last two days we met 🙃📷</p>
+      <p>Tap the picture please 👇</p>
+    </div>
+
+    <img id="tapPhoto" class="photo" src="img.jpeg" alt="tap image">
+    <button class="btn" onclick="activatePage2()">Tap the picture</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="page2" class="section">
+    <div>
+      <div class="dark-title">Continue without me</div>
+      <div class="dark-sub">
+        May you never find someone like me,<br>
+        and may I never find someone like you.<br>
+        Let's stay as friends 🥀.<br>
+        Still love you, all I wanted was to change "Heshani crew" to "Chutyyy 💕"
+      </div>
+      <button class="btn" onclick="finalGoodbye()">Goodbye</button>
+    </div>
+  </div>
+
+  <script>
+    const piano = document.getElementById('piano');
+    const body = document.body;
+    const tapPhoto = document.getElementById('tapPhoto');
+    let audioStarted = false;
+
+    // Start music AND show page 2 when picture is tapped
+	function activatePage2(){
+	  if(!audioStarted){
+		audioStarted = true;
+		piano.volume = 0.25;
+		piano.loop = true;
+
+		piano.currentTime = 0; // ← add this line here
+		piano.play().catch(()=>{
+			// fallback if browser blocks first play
+			setTimeout(()=>{ piano.play().catch(()=>{}); }, 200);
+		});
+	  }
+	  body.classList.add('show-page2');
+}
+
+
+    tapPhoto.addEventListener('click', activatePage2);
+
+    function finalGoodbye(){
+      const fadeDuration = 1200;
+      const startVol = piano.volume || 0.25;
+      const steps = 20;
+      let step=0;
+      const iv=setInterval(()=>{
+        step++;
+        piano.volume = Math.max(0, startVol*(1-step/steps));
+        if(step>=steps){ clearInterval(iv); piano.pause(); }
+      },fadeDuration/steps);
+
+      document.documentElement.style.transition='opacity 1.2s ease';
+      document.documentElement.style.opacity='0';
+      setTimeout(()=>{ try{window.close();}catch(e){} },1300);
+    }
+  </script>
+
+</body>
+</html>
