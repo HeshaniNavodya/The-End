@@ -45,11 +45,20 @@
     }
     .btn:hover { transform: translateY(-3px); background:white; color:#555; }
 
-    #page2 { 
-      background: linear-gradient(135deg, #1a1a1a, #333); 
-      opacity:0; pointer-events:none; z-index:2; 
-      color:#eee;
-    }
+     #page2 { 
+	  position: fixed;     /* fix it to viewport */
+	  inset: 0;            /* top/right/bottom/left = 0 */
+	  background: linear-gradient(135deg, #1a1a1a, #333); 
+	  opacity: 0; 
+	  pointer-events: none; 
+	  z-index: 999;        /* high so it’s above everything */
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  justify-content: center;
+	  color: #eee;
+      }
+
 
     .dark-title { font-size:36px; font-weight:500; margin-bottom:14px; }
     .dark-sub { font-size:18px; line-height:1.6; color:#ddd; max-width:760px; margin-bottom:26px; }
